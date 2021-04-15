@@ -27,5 +27,10 @@
         <file>app_activity_indicator.js</file>
         <file>icons/Rolling-1s-200px.svg</file>
         <file>app.qml</file>
+        <file>icons/play-button.svg</file>
+        <file>icons/pause-button.svg</file>
+        <file>icons/prev_track.svg</file>
+        <file>LoaderBar.qml</file>
+        <file>icons/audio_volume_icon.svg</file>
     </qresource>
 </RCC>
