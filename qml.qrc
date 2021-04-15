@@ -1,0 +1,31 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>LeftBar.qml</file>
+        <file>LeftBarButton.qml</file>
+        <file>icons/hot.svg</file>
+        <file>icons/albums.svg</file>
+        <file>icons/artists.svg</file>
+        <file>icons/browse.svg</file>
+        <file>icons/home.svg</file>
+        <file>icons/songs.svg</file>
+        <file>fonts/Mohave/ttf/Mohave-Bold.ttf</file>
+        <file>fonts/Mohave/ttf/Mohave-BoldItalic.ttf</file>
+        <file>fonts/Mohave/ttf/Mohave-Italic.ttf</file>
+        <file>fonts/Mohave/ttf/Mohave-Light.ttf</file>
+        <file>fonts/Mohave/ttf/Mohave-LightItalic.ttf</file>
+        <file>fonts/Mohave/ttf/Mohave-Medium.ttf</file>
+        <file>fonts/Mohave/ttf/Mohave-MediumItalic.ttf</file>
+        <file>fonts/Mohave/ttf/Mohave-Regular.ttf</file>
+        <file>TopBar.qml</file>
+        <file>BottomBar.qml</file>
+        <file>MainWidget.qml</file>
+        <file>login.qml</file>
+        <file>LoginTextInput.qml</file>
+        <file>icons/arrow-pointing-to-right.svg</file>
+        <file>AppActivityIndicator.qml</file>
+        <file>app_activity_indicator.js</file>
+        <file>icons/Rolling-1s-200px.svg</file>
+        <file>app.qml</file>
+    </qresource>
+</RCC>
