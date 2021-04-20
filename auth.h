@@ -19,7 +19,8 @@ class Auth : public QObject
     QString _email;
     QString _password;
     QByteArray secret;
-    bool authenticated = true;
+    bool authenticated = false;
+
 public:
     explicit Auth(QObject *parent = nullptr);
     Q_INVOKABLE void signIn();
@@ -31,7 +32,7 @@ public:
     bool checkSecret(const QByteArray &secret);
     bool isAuthenticated();
     void setAuthenticated(bool val);
-
+    QNetworkAccessManager *getNetworkManager();
 private:
     QNetworkAccessManager *networkManager;
 

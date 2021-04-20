@@ -175,3 +175,8 @@ void Auth::setAuthenticated(bool val)
     authenticated = val;
     emit authenticatedChanged();
 }
+
+QNetworkAccessManager *Auth::getNetworkManager()
+{
+    return networkManager;
+}

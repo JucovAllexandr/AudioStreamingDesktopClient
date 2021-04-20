@@ -2,6 +2,8 @@
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
 #include <auth.h>
+#include <mysongsmodel.h>
+#include <mysongs.h>
 int main(int argc, char *argv[])
 {
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
@@ -10,7 +12,11 @@ int main(int argc, char *argv[])
 
     QQmlApplicationEngine engine;
     Auth auth;
+    MySongs mySongs;
+    mySongs.loadMP3("./music/");
+    MySongsModel mySongsModel;
     engine.rootContext()->setContextProperty("Auth", &auth);
+    engine.rootContext()->setContextProperty("MySongsModel", &mySongsModel);
     const QUrl url(QStringLiteral("qrc:/main.qml"));
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,
                      &app, [url](QObject *obj, const QUrl &objUrl) {
