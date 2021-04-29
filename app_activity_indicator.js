@@ -3,9 +3,10 @@ var sprite;
 var object_parent;
 
 function destroyAppActivityIndicator(){
+    object_parent.enabled = true
     sprite.destroy()
     component.destroy()
-    object_parent.enabled = true
+
 }
 function createAppActivityIndicator(_parent) {
     object_parent = _parent

@@ -111,8 +111,10 @@ Item {
             }
 
             LeftBarButton{
+                id: mySongsButton
                 width: buttonWidth
                 height: buttonHeight
+                objectName: "MySongsObject"
                 text: "Songs"
                 source: "/icons/songs.svg"
             }

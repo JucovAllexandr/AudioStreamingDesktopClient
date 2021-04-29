@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QAbstractListModel>
+#include <networkmanager.h>
 
 class MySongsModel: public QAbstractListModel
 {
@@ -25,16 +26,19 @@ public:
         ImgSourceRole = Qt::UserRole + 1,
         TrackNameRole,
         AlbumNameRole,
-        ArtistNameRole
+        ArtistNameRole,
+        TrackId
     };
+
     explicit MySongsModel(QObject *parent = nullptr);
 
+    void setSongsMetta(QVector<AudioMetta> &metta);
     int columnCount(const QModelIndex &parent) const override;
     int rowCount(const QModelIndex &parent) const override;
     QVariant data(const QModelIndex &index, int role) const override;
     QHash<int, QByteArray> roleNames() const override;
 private:
-    QVector<Songs> songs_data;
+    QVector<AudioMetta> metta;
 };
 
 #endif // MYSONGSMODEL_H

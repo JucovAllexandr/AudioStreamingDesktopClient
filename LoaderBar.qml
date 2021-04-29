@@ -2,6 +2,24 @@ import QtQuick 2.15
 
 Item {
     id: root
+    property var isPositionChanging: false
+    property var _load: 0
+    signal positionChanged(real level)
+
+    function setLoad(load){
+        if(isPositionChanging == false){
+            if(load > 100) {
+                load = 100
+            }else if(load < 0){
+                load = 0
+            }
+
+            _load = load
+
+            loader_bar.width = main_bar.width * (load/100)
+            pos_changer.x = (loader_bar.x-(pos_changer.width / 2)) + loader_bar.width
+        }
+    }
 
     Rectangle{
         id: main_bar
@@ -12,7 +30,8 @@ Item {
         color: "#3C3C3C"
         onWidthChanged: {
             /*TODO: Change loader_bar after resizing*/
-            console.log("width changed")
+            setLoad(_load)
+            //console.log("width changed")
         }
         MouseArea{
             anchors.fill: parent
@@ -28,9 +47,10 @@ Item {
             }
 
             onClicked: {
-                console.log(mouse.x)
+                //console.log(mouse.x)
                 loader_bar.width = mouse.x
                 pos_changer.x = mouse.x - (pos_changer.width / 2)
+                root.positionChanged((loader_bar.width / main_bar.width) * 100.0)
             }
         }
     }
@@ -64,8 +84,15 @@ Item {
             drag.maximumX: main_bar.width - (pos_changer.width/2)
 
             onMouseXChanged:  {
-                console.log(pos_changer.x + (pos_changer.width/2))
+                isPositionChanging = true
+                //console.log(pos_changer.x + (pos_changer.width/2))
                 loader_bar.width = pos_changer.x + (pos_changer.width/2)
+                console.log("onMouseXChanged "+((loader_bar.width / main_bar.width) * 100.0))
+                root.positionChanged((loader_bar.width / main_bar.width) * 100.0)
+            }
+
+            onReleased: {
+                isPositionChanging = false
             }
         }
     }

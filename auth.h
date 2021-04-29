@@ -2,7 +2,7 @@
 #define AUTH_H
 
 #include <QObject>
-#include <QNetworkAccessManager>
+#include <networkmanager.h>
 //#include <qqml.h>
 
 #define URL QString("http://45.132.107.112:8080/")
@@ -18,11 +18,11 @@ class Auth : public QObject
 
     QString _email;
     QString _password;
-    QByteArray secret;
+    QString secret;
     bool authenticated = false;
 
 public:
-    explicit Auth(QObject *parent = nullptr);
+    explicit Auth(NetworkManager *net_manager, QObject *parent = nullptr);
     Q_INVOKABLE void signIn();
     Q_INVOKABLE void createAccount();
     QString email();
@@ -31,10 +31,16 @@ public:
     void setPassword(const QString &pass);
     bool checkSecret(const QByteArray &secret);
     bool isAuthenticated();
+    QString getSecret();
     void setAuthenticated(bool val);
-    QNetworkAccessManager *getNetworkManager();
+
 private:
-    QNetworkAccessManager *networkManager;
+    NetworkManager *networkManager;
+private slots:
+    void loginRequestReceived(QString secret, QString error);
+    void registerRequestReceived(bool status, QString error);
+    /*void secretHelloRequestReceived(bool status, QString error);
+    void getAllAudioRequestReceived(AudioMetta metta, QString error);*/
 
 signals:
     void onEmailChanged();

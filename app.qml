@@ -1,17 +1,23 @@
 import QtQuick 2.15
 
 Item {
+    property var bottomBarHeight: 90
     id: root
+
+    Component.onCompleted: {
+        AppManager.connectMySongs()
+    }
+
     LeftBar{
         id: leftBar
         width: root.width * 0.20
-        height: root.height - 104
+        height: root.height - bottomBarHeight
     }
     TopBar{
         id: topBar
         anchors.left: leftBar.right
         width: root.width - leftBar.width
-        height: root.height * 0.15
+        height: root.height * 0.05
 
     }
     BottomBar{
@@ -19,7 +25,7 @@ Item {
         y: leftBar.height
         x: 0
         width: root.width
-        height: 104
+        height: bottomBarHeight
     }
 
     MainWidget{
@@ -28,4 +34,5 @@ Item {
         anchors.left: leftBar.right
         anchors.right: bottomBar.right
     }
+
 }

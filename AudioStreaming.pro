@@ -9,6 +9,7 @@ CONFIG += c++11
 
 SOURCES += \
         appmanager.cpp \
+        audioplayer.cpp \
         auth.cpp \
         main.cpp \
         mysongs.cpp \
@@ -33,6 +34,7 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 HEADERS += \
     appmanager.h \
+    audioplayer.h \
     auth.h \
     mysongs.h \
     mysongsmodel.h \

@@ -3,12 +3,76 @@ import QtGraphicalEffects 1.15
 
 Item {
     id:root
+    FontLoader { id: robotoFont; source: "/fonts/Roboto/Roboto-Regular.ttf" }
+
+    Connections{
+        target: MySongs
+        function onTrackChanged(trackId, title, artist){
+            textTitle.text = title
+            textArtist.text = artist
+        }
+    }
+    Connections{
+        target: AudioPlayer
+
+        function onPositionChanged(level){
+            //console.log(level)
+            track_loader.setLoad(level)
+        }
+
+        function onTrackTimeChanged(playTime, trackTime){
+            textPlayTime.text = playTime
+            textTrackTime.text = trackTime
+        }
+
+        function onStoppedState(){
+            track_loader.setLoad(0);
+            playOverlay.visible = true
+            pauseOverlay.visible = false
+        }
+
+        function onPlayingState(){
+            playOverlay.visible = false
+            pauseOverlay.visible = true
+        }
+
+        function onPausedState(){
+            playOverlay.visible = true
+            pauseOverlay.visible = false
+        }
+    }
+
     Rectangle{
         id: bkg
         anchors.fill: root
         color: "#222222"
 
+        Text{
+            id: textTitle
+            anchors.left: bkg.left
+            anchors.top: bkg.top
+            anchors.topMargin: 10
+            anchors.leftMargin: 10
+            width: implicitWidth
+            height: implicitHeight
+            font.family: robotoFont.name
+            font.pixelSize: 16
+            color: "white"
 
+        }
+
+        Text{
+            id: textArtist
+            anchors.left: bkg.left
+            anchors.top: textTitle.bottom
+            anchors.topMargin: 10
+            anchors.leftMargin: 10
+            width: implicitWidth
+            height: implicitHeight
+            font.family: robotoFont.name
+            font.pixelSize: 12
+            color: "white"
+        }
 
         Rectangle{
             id: btn_play_pause
@@ -66,9 +130,11 @@ Item {
                 hoverEnabled: true
                 onClicked: {
                     if(playOverlay.visible){
+                        AudioPlayer.play()
                         playOverlay.visible = false
                         pauseOverlay.visible = true
-                    }else{
+                    }else{                
+                        AudioPlayer.pause()
                         playOverlay.visible = true
                         pauseOverlay.visible = false
                     }
@@ -121,7 +187,7 @@ Item {
                 anchors.fill: parent
                 hoverEnabled: true
                 onClicked: {
-
+                    AppManager.playPrevSong()
                 }
 
                 onEntered: {
@@ -169,7 +235,7 @@ Item {
                 anchors.fill: parent
                 hoverEnabled: true
                 onClicked: {
-
+                    AppManager.playNextSong()
                 }
 
                 onEntered: {
@@ -189,6 +255,35 @@ Item {
             anchors.horizontalCenter: parent.horizontalCenter
             width: parent.width * 0.50
             height: 5
+
+            onPositionChanged: {
+                console.log("onPositionChanged "+level)
+                AudioPlayer.setPosition(level)
+            }
+        }
+
+        Text{
+            id: textPlayTime
+            anchors.right: track_loader.left
+            anchors.verticalCenter: track_loader.verticalCenter
+            anchors.rightMargin: 10
+            width: implicitWidth
+            height: implicitHeight
+            text: "00:00"
+            font.family: robotoFont.name
+            color: "#A4A4A4"
+        }
+
+        Text{
+            id: textTrackTime
+            anchors.left: track_loader.right
+            anchors.verticalCenter: track_loader.verticalCenter
+            anchors.leftMargin: 10
+            width: implicitWidth
+            height: implicitHeight
+            text: "00:00"
+            font.family: robotoFont.name
+            color: "#A4A4A4"
         }
 
         Rectangle{
@@ -225,6 +320,14 @@ Item {
             anchors.rightMargin: 10
             width: parent.width * 0.10
             height: 5
+
+            Component.onCompleted: {
+                volume_loader.setLoad(100);
+            }
+
+            onPositionChanged: {
+                AudioPlayer.setVolume(level)
+            }
         }
     }
 }

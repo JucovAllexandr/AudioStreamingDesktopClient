@@ -8,6 +8,8 @@ Item {
     property alias iconWidth: icon.width
     property var leftBarButtonWidth: icon.width + label.width + 10
 
+    signal clicked()
+
     Rectangle{
         anchors.fill: root
         border{
@@ -19,6 +21,10 @@ Item {
         MouseArea{
             anchors.fill: parent
             hoverEnabled: true
+            onClicked: {
+                root.clicked();
+                icon_overlay.color = "#18A0FB"
+            }
             onEntered:{
                 parent.border.width = 1
             }
@@ -39,9 +45,10 @@ Item {
         }
 
         ColorOverlay {
+             id: icon_overlay
              anchors.fill: icon
              source: icon
-             color: "#18A0FB"
+             color: "#E5E5E5"
              antialiasing: true
         }
 

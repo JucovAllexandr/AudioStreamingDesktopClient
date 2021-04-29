@@ -114,10 +114,11 @@ SwipeView{
                     }
 
                     if(errorCount === 0){
+                        AppActivityIndicator.createAppActivityIndicator(swipeLogin.parent)
                         Auth.email = emailSignIn.text
                         Auth.password = passwordSignIn.text
                         Auth.signIn()
-                        AppActivityIndicator.createAppActivityIndicator(swipeLogin.parent)
+
                     }
                 }
 

@@ -5,7 +5,25 @@ Item {
     property alias track_text: track_name.text
     property alias album_text: album_name.text
     property alias artist_text: artist_name.text
+    property var isSelected: false
     id: root
+    clip: true
+    function select(){
+        isSelected = true
+        bck.border.width = 1
+        track_name.color = "white"
+        album_name.color = "white"
+        artist_name.color = "white"
+    }
+
+    function unselect(){
+        isSelected = false
+        bck.border.width = 0
+        track_name.color = "#A4A4A4"
+        album_name.color = "#A4A4A4"
+        artist_name.color = "#A4A4A4"
+
+    }
     //anchors.fill: parent
     Rectangle{
         id: bck
@@ -19,10 +37,14 @@ Item {
             anchors.fill: parent
             hoverEnabled: true
             onEntered:{
+                if(!isSelected){
                 parent.border.width = 1
+                }
             }
             onExited: {
+                if(!isSelected){
                 parent.border.width = 0
+                }
             }
         }
         Image {
